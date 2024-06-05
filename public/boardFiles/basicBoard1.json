@@ -1,0 +1,140 @@
+{
+  "columns": {
+    "Items": [
+      {
+        "value": 100,
+        "question": "Cheap Consumable items that gives health regen on use, assuming, there is nearby tree to devour... Somehow.",
+        "answers": ["Tango", "Tangos"] 
+      },
+      {
+        "value": 200,
+        "question": "Item that is frequently bought by the tankiest hero on the team when the enemy has a surplus of magic damage.",
+        "answers": ["Pipe", "Pipe of Insight"] 
+      },
+      {
+        "value": 300,
+        "question": "This item will save you from a legion commander duel before it even happens",
+        "answers": ["Linken's", "Linken's Sphere", "Linkens Sphere"] 
+      },
+      {
+        "value": 400,
+        "question": "The bane of supports, who just want to survive a fight for longer than 5 seconds with some of the meager items they have managed to collect.",
+        "answers": ["Nullifier"] 
+      },
+      {
+        "value": 500,
+        "question": "This item provides a permanent regenerating barrier, without taking an item slot once active.",
+        "answers": ["Block of Cheese", "Block"] 
+      }
+    ],
+    "Meta History - Slated for change": [
+      {
+        "value": 100,
+        "question": "Cheap Consumable items that gives health regen on use, assuming, there is nearby tree to devour... Somehow.",
+        "answers": ["Tango", "Tangos"] 
+      },
+      {
+        "value": 200,
+        "question": "Item that is frequently bought by the tankiest hero on the team when the enemy has a surplus of magic damage.",
+        "answers": ["Pipe", "Pipe of Insight"] 
+      },
+      {
+        "value": 300,
+        "question": "This item will save you from a legion commander duel before it even happens",
+        "answers": ["Linken's", "Linken's Sphere", "Linkens Sphere"] 
+      },
+      {
+        "value": 400,
+        "question": "The bane of supports, who just want to survive a fight for longer than 5 seconds with some of the meager items they have managed to collect.",
+        "answers": ["Nullifier"] 
+      },
+      {
+        "value": 500,
+        "question": "This item provides a permanent regenerating barrier, without taking an item slot once active.",
+        "answers": ["Block of Cheese", "Block"] 
+      }
+    ],
+    "Map Knowledge": [
+      {
+        "value": 100,
+        "question": "This place, on 2 corners of the map, is a great way to help secure a win.",
+        "answers": ["Roshan's pit", "Rosh pit"] 
+      },
+      {
+        "value": 200,
+        "question": "Every 2 minutes, a powerful object appears in one of these spaces for anyone to grab.",
+        "answers": ["Power Runes", "Power Rune Spot", "Power Runes"] 
+      },
+      {
+        "value": 300,
+        "question": "These structures allow for vision in frequently traveled places on the map",
+        "answers": ["Watchers", "The Watchers", "Watcher"] 
+      },
+      {
+        "value": 400,
+        "question": "This section of the jungle boosts all heroes mana regen within in the area.",
+        "answers": ["The Well", "Well"] 
+      },
+      {
+        "value": 500,
+        "question": "This object in the jungle provides a boon to reduce damage while under its gaze.",
+        "answers": ["Statue", "The Statue"] 
+      }
+    ], 
+    "Hero Abilities": [
+      {
+        "value": 100,
+        "question": "The ability to stop time momentarily, to both your teams boon and bane.",
+        "answers": ["Chrono", "Chronosphere"] 
+      },
+      {
+        "value": 200,
+        "question": "This ability, while one of many, allows one to quickly move from location to location instantaneously and belongs to more than one hero.",
+        "answers": ["Blink"] 
+      },
+      {
+        "value": 300,
+        "question": "This ability has won 6 million dollars. It is known by a hero with fur and a deep connection with one of the 4 elements from Avatar.",
+        "answers": ["Echo Slam", "Echoslam"] 
+      },
+      {
+        "value": 400,
+        "question": "This ability can be used on both allies and enemies. It lasts quite long but gives its target a moment of invincibility. ",
+        "answers": ["Nightmare"] 
+      },
+      {
+        "value": 500,
+        "question": "This hero and ability, share a name with each other.",
+        "answers": ["Bristleback", "Doom"] 
+      }
+    ], 
+    "Jungle Creeps": [
+      {
+        "value": 100,
+        "question": "This camp has the creep that are most difficult to kill, but are worth the most resources.",
+        "answers": ["Ancients", "Ancient Camp", "Ancients Camp"] 
+      },
+      {
+        "value": 200,
+        "question": "This camp, which has a medium and a large variant, has a creep with the ability to stun all those around it inside it.",
+        "answers": ["Centaur Camp", "Centaur"] 
+      },
+      {
+        "value": 300,
+        "question": "This mechanic adds gold that is in the jungle at anyone one time. It is a great way to create extra gold for your team, regardless of what position you are playing.",
+        "answers": ["Stacking", "Creep Stacking"] 
+      },
+      {
+        "value": 400,
+        "question": "This technique allows a small camp to assuredly deny friendly creeps on its own without having to be stacked first.",
+        "answers": ["Half Pull", "Half Pulling"] 
+      },
+      {
+        "value": 500,
+        "question": "This jungle creep has the ability to stun all those around it.",
+        "answers": ["Centaur Conqueror"] 
+      }
+    ]
+  }
+
+}

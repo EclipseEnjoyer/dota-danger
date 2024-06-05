@@ -72,7 +72,7 @@ function QuestionTable({columns, rows, step} : {columns: Array<string>, rows: nu
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-12">
-      <div className="z-10 w-full text-center">
+      <div className="z-10 w-full text-center flex justify-center">
         <QuestionTable columns={['Items', 'Meta History', 'Map Knowledge', 'Hero Abilities', 'Jungle Creeps']} rows={5} step={100}/>
       </div>
     </main>
