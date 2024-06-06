@@ -7,8 +7,6 @@ const boardInfo = require("../../../public/boardFiles/basicBoard1.json")
 
 const questionStep = 100;
 
-
-
 function QuestionBox({ value, question, answers, stateObject } : { value: number, question: string, answers: Array<string>, stateObject: any }) {
   const [isOpen, setOpen] = useState(false)
   const [isAnswered, setAnswered] = useState(false)
