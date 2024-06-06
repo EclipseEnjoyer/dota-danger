@@ -3,9 +3,13 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+const boardInfo = require("../../../public/boardFiles/basicBoard1.json")
+
+const questionStep = 100;
 
 
-function QuestionBox({ value, question } : { value: number, question: string }) {
+
+function QuestionBox({ value, question, answers } : { value: number, question: string, answers: Array<string> }) {
   const [isOpen, setOpen] = useState(false)
   const [isAnswered, setAnswered] = useState(false)
 
@@ -35,25 +39,31 @@ function QuestionBox({ value, question } : { value: number, question: string }) 
   )
 }
 
-function QuestionRow({value, columns} : { value: number, columns: Array<string>}){
+function QuestionRow({value, columns} : { value: number, columns: Object}){
+  const rowIndex = ((value / questionStep) - 1);
   //Need to add in a way to load in questions
-  const questionBoxes = columns.map(column =>
-    <QuestionBox  key={column + value.toString()} value={value} question={"Some random question"}/>
+  const questionBoxes = Object.values(columns).map(column =>
+    <QuestionBox  key={column + value.toString()} value={value} question={column[rowIndex].question} answers={column[rowIndex].answers}/>
   );
   return (<tr>{questionBoxes}</tr>);
 }
 
-function QuestionTable({columns, rows, step} : {columns: Array<string>, rows: number, step: number}){
-  const tableHeaders = columns.map(column =>
+//Should probably write an actual object for this at some point
+function QuestionTable({ boardInfo } : {boardInfo: any}){
+  let columnInfo = boardInfo.columns;
+  let columnNames = Object.keys(columnInfo)
+  const tableHeaders = columnNames.map(column =>
     <th className="px-2 py-2 min-w-28 border-solid border-white border-2" key={"header_" + column}>{column}</th>
   )
+
+  let rows = boardInfo.rows;
   //I feel like there has to be a better way to do this, in terms of code looking nice
   let rowArray = [];
   for(let i = 1; i <= rows; i++){
-    rowArray.push(i * step);
+    rowArray.push(i * questionStep);
   }
   const rowElements = rowArray.map(rowValue => 
-    <QuestionRow key={"row_" + rowValue} value={rowValue} columns={columns}/>
+    <QuestionRow key={"row_" + rowValue} value={rowValue} columns={columnInfo}/>
   )
   return (
     <table className="bg-black">
@@ -73,7 +83,7 @@ export default function Page() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-12">
       <div className="z-10 w-full text-center flex justify-center">
-        <QuestionTable columns={['Items', 'Meta History', 'Map Knowledge', 'Hero Abilities', 'Jungle Creeps']} rows={5} step={100}/>
+        <QuestionTable boardInfo={boardInfo} />
       </div>
     </main>
   );

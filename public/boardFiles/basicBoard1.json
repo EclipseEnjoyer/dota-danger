@@ -1,9 +1,10 @@
 {
+  "rows": 5,
   "columns": {
     "Items": [
       {
         "value": 100,
-        "question": "Cheap Consumable items that gives health regen on use, assuming, there is nearby tree to devour... Somehow.",
+        "question": "Cheap Consumable items that give health regen on use, assuming, there is nearby tree to devour...Somehow.",
         "answers": ["Tango", "Tangos"] 
       },
       {
@@ -27,31 +28,31 @@
         "answers": ["Block of Cheese", "Block"] 
       }
     ],
-    "Meta History - Slated for change": [
+    "Heroes": [
       {
         "value": 100,
-        "question": "Cheap Consumable items that gives health regen on use, assuming, there is nearby tree to devour... Somehow.",
-        "answers": ["Tango", "Tangos"] 
+        "question": "This hero is the most popular hero, presiding over the Fields of Endless Carnage as the resident Butcher.",
+        "answers": ["Pudge"] 
       },
       {
         "value": 200,
-        "question": "Item that is frequently bought by the tankiest hero on the team when the enemy has a surplus of magic damage.",
-        "answers": ["Pipe", "Pipe of Insight"] 
+        "question": "This hero is the muscle of the Tyler Estate, while Silencer acts as its brains.",
+        "answers": ["Anti-mage", "Antimage", "Anti mage"] 
       },
       {
         "value": 300,
-        "question": "This item will save you from a legion commander duel before it even happens",
-        "answers": ["Linken's", "Linken's Sphere", "Linkens Sphere"] 
+        "question": "This hero is the oldest and most mysterious of the Spirit Brothers.",
+        "answers": ["Void Spirit", "Inai"] 
       },
       {
         "value": 400,
-        "question": "The bane of supports, who just want to survive a fight for longer than 5 seconds with some of the meager items they have managed to collect.",
-        "answers": ["Nullifier"] 
+        "question": "This feline fellow has the ability to take on entire armies man-to-man with only himself.",
+        "answers": ["Phantom Lancer", "Azwraith"] 
       },
       {
         "value": 500,
-        "question": "This item provides a permanent regenerating barrier, without taking an item slot once active.",
-        "answers": ["Block of Cheese", "Block"] 
+        "question": "This hero represents the electromagnetic force of the universe and as a result can blend in both our universe and the DOTA universe.",
+        "answers": ["Io", "IO", "Wisp"] 
       }
     ],
     "Map Knowledge": [
