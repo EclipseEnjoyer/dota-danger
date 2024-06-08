@@ -4,16 +4,16 @@ import { useState } from "react";
 
 const questionStep = 100;
 
-function QuestionBox({ value, question, answers, stateObject } : { value: number, question: string, answers: Array<string>, stateObject: any }) {
+function QuestionBox({ value, question, answers, goldAdjustmentFunction } : { value: number, question: string, answers: Array<string>, goldAdjustmentFunction : (gold: number, positive: boolean) => void }) {
   const [isOpen, setOpen] = useState(false)
   const [isAnswered, setAnswered] = useState(false)
   const [givenAnswer, setGivenAnswer] = useState("")
 
   function answerQuestion() {
     if(answers.includes(givenAnswer.toLowerCase())){
-      stateObject.setPlayer1Gold(stateObject.player1Gold + value)
+      goldAdjustmentFunction(value, true)
     } else {
-      stateObject.setPlayer1Gold(stateObject.player1Gold - value)
+      goldAdjustmentFunction(value, false)
     }
     setOpen(!isOpen);
     setAnswered(true);
@@ -44,17 +44,17 @@ function QuestionBox({ value, question, answers, stateObject } : { value: number
   )
 }
 
-function QuestionRow({value, columns, stateObject} : { value: number, columns: Object, stateObject: any}){
+function QuestionRow({value, columns, goldAdjustmentFunction } : { value: number, columns: Object, goldAdjustmentFunction : (gold: number, positive: boolean) => void}){
   const rowIndex = ((value / questionStep) - 1);
   //Need to add in a way to load in questions
   const questionBoxes = Object.values(columns).map((column, index) =>
-    <QuestionBox key={"column-" + index + "_value-" + value.toString()} value={value} question={column[rowIndex].question} answers={column[rowIndex].answers} stateObject={stateObject}/>
+    <QuestionBox key={"column-" + index + "_value-" + value.toString()} value={value} question={column[rowIndex].question} answers={column[rowIndex].answers} goldAdjustmentFunction={goldAdjustmentFunction}/>
   );
   return (<tr>{questionBoxes}</tr>);
 }
 
 //Should probably write an actual object for this at some point
-export default function QuestionTable({ boardInfo, stateObject } : {boardInfo: any, stateObject: any}){
+export default function QuestionTable({ boardInfo, goldAdjustmentFunction} : { boardInfo: any, goldAdjustmentFunction : (gold: number, positive: boolean) => void}){
   let columnInfo = boardInfo.columns;
   let columnNames = Object.keys(columnInfo)
   const tableHeaders = columnNames.map(column =>
@@ -68,7 +68,7 @@ export default function QuestionTable({ boardInfo, stateObject } : {boardInfo: a
     rowArray.push(i * questionStep);
   }
   const rowElements = rowArray.map(rowValue => 
-    <QuestionRow key={"row_" + rowValue} value={rowValue} columns={columnInfo} stateObject={stateObject}/>
+    <QuestionRow key={"row_" + rowValue} value={rowValue} columns={columnInfo} goldAdjustmentFunction={goldAdjustmentFunction}/>
   )
   return (
     <table className="bg-black">
