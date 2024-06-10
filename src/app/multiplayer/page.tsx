@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, sync } from "framer-motion";
 import { useEffect, useState } from "react";
 import { socket } from "../../socket";
 import { v4 as uuidV4 } from 'uuid';
@@ -9,6 +9,7 @@ import { v4 as uuidV4 } from 'uuid';
 import QuestionTable from "@/components/QuestionTable";
 import PlayerInformationTracker from "@/components/PlayerInformationTracker";
 const boardInfo = require("../../../public/boardFiles/basicBoard1.json")
+let initialSyncOccurred = false
 
 function PlayerGoldTracker({ playerName, gold } : {playerName: string, gold: number}){
   return (
@@ -39,7 +40,7 @@ export default function Page() {
     let clonedPlayerArray = structuredClone(playerArray)
     clonedPlayerArray[activePlayer].gold = goldValue
     setPlayerArray(clonedPlayerArray)
-    socket.emit('syncPlayerArray', playerArray)
+    socket.emit('syncPlayerDataUp', clonedPlayerArray)
   }
 
   const adjustActivePlayerGold = (goldValue: number, positive: boolean) => {
@@ -47,7 +48,7 @@ export default function Page() {
     if(positive) clonedPlayerArray[activePlayer].gold += goldValue
     else clonedPlayerArray[activePlayer].gold -= goldValue
     setPlayerArray(clonedPlayerArray)
-    socket.emit('syncPlayerArray', playerArray)
+    socket.emit('syncPlayerDataUp', clonedPlayerArray)
   }
 
   //This shouldn't use active player in the long run but just for ease of implementation right now
@@ -55,15 +56,19 @@ export default function Page() {
     let clonedPlayerArray = structuredClone(playerArray)
     clonedPlayerArray[activePlayer].name = name
     setPlayerArray(clonedPlayerArray)
-    socket.emit('syncPlayerArray', playerArray)
+    socket.emit('syncPlayerDataUp', clonedPlayerArray)
   }
 
   const addPlayer = (name: string, goldValue: number, uniqueUserId: string) => {
     let clonedPlayerArray = structuredClone(playerArray)
     let newPlayer = { name: name, gold: goldValue, uniqueUserId: uniqueUserId }
+    console.log('Cloned Player Array', clonedPlayerArray)
     clonedPlayerArray.push(newPlayer)
     setPlayerArray(clonedPlayerArray)
-    socket.emit('syncPlayerArray', playerArray)
+    console.log('Player Array before emit', playerArray)
+    console.log('Cloned player array before emit', clonedPlayerArray)
+    socket.emit('syncPlayerDataUp', clonedPlayerArray)
+    console.log('Add player after socket emit', uniqueUserId)
   }
 
   useEffect(() => {
@@ -72,19 +77,35 @@ export default function Page() {
     }
 
     function onConnect() {
+      setIsConnected(true);
+      setTransport(socket.io.engine.transport.name);
+
+      socket.io.engine.on("upgrade", (transport) => {
+        setTransport(transport.name);
+      });
+    }
+
+    function syncDown(incomingPlayerArray : Array<{name: string, gold: number, uniqueUserId: string}>){
+      console.log('Sync down happening', incomingPlayerArray)
+      let cloneOfIncomingPlayerArray = structuredClone(incomingPlayerArray)
+      setPlayerArray(cloneOfIncomingPlayerArray)
+      console.log('Initial Sync checked?', initialSyncOccurred)
+      if(!initialSyncOccurred) {
+        console.log()
+        initialSyncOccurred = true
+        initialSyncUp(cloneOfIncomingPlayerArray)
+      } 
+    }
+
+    function initialSyncUp(playerArray){
       //This process will need to be thrown in a database at some point to truly make sure that these are unique, but a problem for another day
       let uniqueUserId = localStorage.getItem('uniqueUserId')
       if(uniqueUserId === null || uniqueUserId === undefined) {
         uniqueUserId = uuidV4()
         localStorage.setItem('uniqueUserId', uniqueUserId)
       }
-      setIsConnected(true);
-      setTransport(socket.io.engine.transport.name);
+      console.log('Initital Sync up')
       addPlayer('PlayerAlpha', 0, uniqueUserId)
-
-      socket.io.engine.on("upgrade", (transport) => {
-        setTransport(transport.name);
-      });
     }
 
     function onDisconnect() {
@@ -97,11 +118,9 @@ export default function Page() {
     socket.on("disconnect", onDisconnect);
 
     //Socket Functions
-    socket.on("syncPlayerState", (incomingPlayerArray) => {
-      let cloneOfIncomingPlayerArray = structuredClone(incomingPlayerArray)
-      setPlayerArray(cloneOfIncomingPlayerArray)
+    socket.on("syncPlayerDataDown", (incomingPlayerArray) => {
+      syncDown(incomingPlayerArray)
     })
-
 
     return () => {
       socket.off("connect", onConnect);
@@ -109,6 +128,15 @@ export default function Page() {
     };
   }, []);
 
+
+  //Hnadles the connecting and disconnecting specifically
+  useEffect(() => {
+    socket.connect()
+
+    return () => {
+      socket.disconnect();
+    }
+  },[]);
 
   return (
     <main className="flex h-4/6 flex-col items-center justify-between p-12">
