@@ -50,7 +50,7 @@ export default function PlayerInformationTracker({ playerArray, nameAdjustmentFu
     <PlayerGoldTracker key={"player_" + index} playerName={playerObject.name} gold={playerObject.gold} nameAdjustmentFunction={nameAdjustmentFunction}/>
   )
   return (
-    <div className="w-screen flex flex-col text-center gap-4 justify-center items-center">
+    <div className="w-screen flex flex-row text-center gap-4 justify-center items-center">
       {playerTrackers}
     </div>
   )

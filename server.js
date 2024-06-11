@@ -11,7 +11,8 @@ const port = 3000;
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
-let playerData = []
+let playerData = [];
+let socketConnectionCount = 0;
 
 app.prepare().then(() => {
   const httpServer = createServer(handler);
@@ -36,6 +37,7 @@ app.prepare().then(() => {
   console.log('Do these even show up??')
 
   io.on("connection", (socket) => {
+    socketConnectionCount++;
     console.log('Server picking up connection of socket')
     
     socket.on('syncPlayerDataUp', (newPlayerData) => {
@@ -46,7 +48,10 @@ app.prepare().then(() => {
     })
 
     socket.on('disconnect', () => {
+      socketConnectionCount--;
       console.log('Socket disconnected')
+      //Just in case things get into a funky state this will clear it
+      if(socketConnectionCount == 0) playerData = [];
     })
     
     socket.emit('syncPlayerDataDown', playerData)
