@@ -34,15 +34,11 @@ app.prepare().then(() => {
 
   const io = new Server(httpServer);
 
-  console.log('Do these even show up??')
-
   io.on("connection", (socket) => {
     socketConnectionCount++;
     console.log('Server picking up connection of socket')
     
     socket.on('syncPlayerDataUp', (newPlayerData) => {
-      console.log('Sync up happening', newPlayerData.length)
-      if(newPlayerData.length > 0) console.log('Sync up happening', newPlayerData[0].name)
       playerData = newPlayerData
       io.emit('syncPlayerDataDown', newPlayerData)
     })
