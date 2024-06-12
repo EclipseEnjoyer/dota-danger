@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-function PlayerGoldTracker({ playerName, gold, nameAdjustmentFunction } : {playerName: string, gold: number, nameAdjustmentFunction: (name: string) => void}){
+function PlayerGoldTracker({ playerName, gold, nameAdjustmentFunction, clientPlayer } : {playerName: string, gold: number, nameAdjustmentFunction: (name: string) => void, clientPlayer: boolean}){
   let textSize = "text-4xl"
 
   if(playerName.length > 9) textSize = "text-2xl"
@@ -18,7 +18,7 @@ function PlayerGoldTracker({ playerName, gold, nameAdjustmentFunction } : {playe
           />
         <span className="text-4xl text-transparent bg-clip-text bg-gradient-to-b from-zinc-600 via-amber-300 to-amber-950">{ gold }</span>
       </div>
-      <input className={"bg-transparent text-center m-6 mt-2 " + textSize } value={ playerName } onChange={e => nameAdjustmentFunction(e.target.value)}/>
+      <input className={"bg-transparent text-center m-6 mt-2 " + textSize } value={ playerName } disabled={!clientPlayer} onChange={e => nameAdjustmentFunction(e.target.value)}/>
     </div>
   )
 }
@@ -45,9 +45,9 @@ function EmptyPlayerGoldTracker(){
   )
 }
 
-export default function PlayerInformationTracker({ playerArray, nameAdjustmentFunction } : { playerArray: Array<any>, nameAdjustmentFunction: (name: string) => void }) {
+export default function PlayerInformationTracker({ playerArray, nameAdjustmentFunction, clientUserId } : { playerArray: Array<{name: string, gold: number, uniqueUserId: string}>, nameAdjustmentFunction: (name: string) => void, clientUserId: string }) {
   const playerTrackers = playerArray.map((playerObject, index) => 
-    <PlayerGoldTracker key={"player_" + index} playerName={playerObject.name} gold={playerObject.gold} nameAdjustmentFunction={nameAdjustmentFunction}/>
+    <PlayerGoldTracker key={"player_" + index} playerName={playerObject.name} gold={playerObject.gold} nameAdjustmentFunction={nameAdjustmentFunction} clientPlayer={playerObject.uniqueUserId === clientUserId}/>
   )
   return (
     <div className="w-screen flex flex-row text-center gap-4 justify-center items-center">

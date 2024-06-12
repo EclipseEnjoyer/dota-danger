@@ -142,7 +142,7 @@ export default function Page() {
         <QuestionTable key="question-table" boardInfo={boardInfo} goldAdjustmentFunction={adjustActivePlayerGold}/>
       </div>
       <div className="fixed bottom-0 z-20 flex text-center justify-center h-1/6 mx-5">
-        <PlayerInformationTracker key="player1-gold-tracker" playerArray={playerArray} nameAdjustmentFunction={setPlayerName}/>
+        <PlayerInformationTracker key="player1-gold-tracker" playerArray={playerArray} nameAdjustmentFunction={setPlayerName} clientUserId={clientPlayerId}/>
       </div>
     </main>
   );
